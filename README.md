@@ -41,3 +41,34 @@ Ex:
 ```
 
 Obs: entrar no artifact e ver se tem o pom dentro da versao da lib.
+
+## Analisar Heap Dump e Thread Dump
+
+### Verificar consumo de memoria Heap Dump
+
+ * Dentro de uma pod:
+
+	```$ apt update && apt install openjdk-8-jdk openjdk-8-dbg```
+
+	```$ jmap -dump:live,format=b,file=/tmp/dump.hprof PID_PROCESSO_JAVA```
+
+* Copiar o heap dump para maquina local
+
+	```$ kubectl cp <namespace>/<Pod name>:/tmp/dump.hprof ./dump.hprof```
+
+
+* Usar o VisualVm para visualizar
+
+	https://visualvm.github.io/
+
+### Para thread dump:
+
+ * Dentro de uma pod:
+ 
+	```$ jstack -l 1  > /tmp/dump.hprof```
+
+ * Para analisar usar: 
+ 
+ 	https://fastthread.io/
+
+Referência: https://www.zup.com.br/blog/ferramentas-de-troubleshooting-em-aplicacoes-jvm
